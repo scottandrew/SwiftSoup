@@ -959,6 +959,21 @@ open class Element: Node {
         return sb.toString().trim()
     }
 
+    public func ownTextNoTrim() -> String {
+        let sb: StringBuilder = StringBuilder()
+
+        for child: Node in childNodes {
+            if let textNode = (child as? TextNode) {
+                Element.appendNormalisedText(sb, textNode)
+            }
+        }
+
+        let string = sb.toString()
+
+        return string.trimmingCharacters(in: NSCharacterSet.newlines)
+    }
+
+
     private func ownText(_ accum: StringBuilder) {
         for child: Node in childNodes {
             if let textNode = (child as? TextNode) {
